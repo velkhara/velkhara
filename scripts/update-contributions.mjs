@@ -5,6 +5,9 @@ const token = process.env.GITHUB_TOKEN;
 
 const currentYear = new Date().getFullYear();
 
+console.log("Username:", username);
+console.log("Token exists:", Boolean(token));
+
 async function graphql(query, variables = {}) {
   const response = await fetch("https://api.github.com/graphql", {
     method: "POST",
@@ -16,13 +19,26 @@ async function graphql(query, variables = {}) {
     body: JSON.stringify({ query, variables }),
   });
 
-  const data = await response.json();
+  const result = await response.json();
 
-  if (data.errors) {
-    throw new Error(JSON.stringify(data.errors, null, 2));
+  console.log("GitHub response status:", response.status);
+  console.log("GitHub response:", JSON.stringify(result, null, 2));
+
+  if (!response.ok) {
+    throw new Error(
+      `GitHub API request failed: ${response.status} ${response.statusText}`
+    );
   }
 
-  return data.data;
+  if (result.errors) {
+    throw new Error(JSON.stringify(result.errors, null, 2));
+  }
+
+  if (!result.data) {
+    throw new Error("GitHub returned no GraphQL data.");
+  }
+
+  return result.data;
 }
 
 async function getUserCreatedAt() {
