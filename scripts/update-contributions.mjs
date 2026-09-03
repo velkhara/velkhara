@@ -39,13 +39,25 @@ async function getUserCreatedAt() {
 
   return new Date(data.user.createdAt);
 }
-
 async function getContributions(from, to) {
   const data = await graphql(
     `
       query ($login: String!, $from: DateTime!, $to: DateTime!) {
+        viewer {
+          login
+        }
+
         user(login: $login) {
+          login
+
           contributionsCollection(from: $from, to: $to) {
+            hasAnyContributions
+            restrictedContributionsCount
+            totalCommitContributions
+            totalIssueContributions
+            totalPullRequestContributions
+            totalPullRequestReviewContributions
+
             contributionCalendar {
               totalContributions
             }
@@ -59,6 +71,9 @@ async function getContributions(from, to) {
       to: to.toISOString(),
     }
   );
+
+  console.log("DEBUG CONTRIBUTIONS:");
+  console.log(JSON.stringify(data, null, 2));
 
   return data.user.contributionsCollection.contributionCalendar
     .totalContributions;
