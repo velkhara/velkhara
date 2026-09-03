@@ -24,7 +24,7 @@ jobs:
 
       - name: Generate contribution badges
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
         run: node scripts/update-contributions.mjs
 
