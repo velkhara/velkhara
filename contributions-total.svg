@@ -1,0 +1,47 @@
+<svg width="220" height="220" viewBox="0 0 220 220"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <circle
+    cx="110"
+    cy="110"
+    r="85"
+    fill="none"
+    stroke="#2f2f2f"
+    stroke-width="14"
+  />
+
+  <circle
+    cx="110"
+    cy="110"
+    r="85"
+    fill="none"
+    stroke="#a371f7"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-dasharray="454 534"
+    transform="rotate(-90 110 110)"
+  />
+
+  <text
+    x="110"
+    y="102"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="34"
+    font-weight="700"
+    fill="#ffffff"
+  >
+    0
+  </text>
+
+  <text
+    x="110"
+    y="132"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="14"
+    fill="#8b949e"
+  >
+    TOTAL
+  </text>
+</svg>
