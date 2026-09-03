@@ -55,25 +55,19 @@ async function getUserCreatedAt() {
 
   return new Date(data.user.createdAt);
 }
+
 async function getContributions(from, to) {
+  console.log(
+    `\nFetching: ${from.toISOString()} → ${to.toISOString()}`
+  );
+
   const data = await graphql(
     `
       query ($login: String!, $from: DateTime!, $to: DateTime!) {
-        viewer {
-          login
-        }
-
         user(login: $login) {
-          login
-
           contributionsCollection(from: $from, to: $to) {
             hasAnyContributions
             restrictedContributionsCount
-            totalCommitContributions
-            totalIssueContributions
-            totalPullRequestContributions
-            totalPullRequestReviewContributions
-
             contributionCalendar {
               totalContributions
             }
@@ -88,11 +82,12 @@ async function getContributions(from, to) {
     }
   );
 
-  console.log("DEBUG CONTRIBUTIONS:");
-  console.log(JSON.stringify(data, null, 2));
+  const contributions =
+    data.user.contributionsCollection.contributionCalendar.totalContributions;
 
-  return data.user.contributionsCollection.contributionCalendar
-    .totalContributions;
+  console.log(`Contributions: ${contributions}`);
+
+  return contributions;
 }
 
 function createSvg(value, label, progress = 0.85) {
