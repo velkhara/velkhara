@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
 const username = process.env.GITHUB_REPOSITORY_OWNER;
-const token = process.env.GITHUB_TOKEN;
+const token = process.env.GH_TOKEN;
 
 const currentYear = new Date().getFullYear();
 
